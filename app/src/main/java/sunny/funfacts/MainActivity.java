@@ -13,9 +13,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mFactLabel;
     private Button mShowFactButton;
     private RelativeLayout mRelativeLayout;
-    private String mFact;
-    private int mColor;
+    private String mFact = mFactBook.mFacts[0];
+    private int mColor = Color.parseColor(mColorWheel.mColors[0]);
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 int mColor = mColorWheel.getColor();
                 mRelativeLayout.setBackgroundColor(mColor);
                 mShowFactButton.setTextColor(mColor);
-                mFactBook.mfacts[0] = "Pigs are cool";
+                mFactBook.mFacts[0] = "Pigs are cool";
             }
         };
         mShowFactButton.setOnClickListener(listener);
