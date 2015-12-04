@@ -20,8 +20,21 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private static final String KEY_FACT = "KEY_FACT";
+    private static final String KEY_COLOR = "KEY_COLOR";
     private FactBook mFactBook = new FactBook();
     private ColorWheel mColorWheel = new ColorWheel();
+    private String mFact;
+    private int mColor;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        
+        outState.putString(KEY_FACT, mFact);
+        outState.putInt(KEY_COLOR, mColor);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fact = mFactBook.getFact();
+                String mFact = mFactBook.getFact();
                 // Update the label with our dynamic fact
-                factLabel.setText(fact);
+                factLabel.setText(mFact);
                 // Update the color dynamically
-                int color = mColorWheel.getColor();
-                RelativeLayout.setBackgroundColor(color);
-                showFactButton.setTextColor(color);
+                int mColor = mColorWheel.getColor();
+                RelativeLayout.setBackgroundColor(mColor);
+                showFactButton.setTextColor(mColor);
                 mFactBook.mfacts[0] = "Pigs are cool";
             }
         };
