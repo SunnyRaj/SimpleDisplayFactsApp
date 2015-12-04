@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_COLOR = "KEY_COLOR";
     private FactBook mFactBook = new FactBook();
     private ColorWheel mColorWheel = new ColorWheel();
+    private TextView mFactLabel;
+    private Button mShowFactButton;
+    private RelativeLayout mRelativeLayout;
     private String mFact;
     private int mColor;
 
@@ -36,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mFact = savedInstanceState.getString(KEY_FACT);
+        mFactLabel.setText(mFact);
+        mColor = savedInstanceState.getInt(KEY_COLOR);
+        int mColor = mColorWheel.getColor();
+        mRelativeLayout.setBackgroundColor(mColor);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -43,23 +58,23 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Declare our view variables and assign the views from the layout file
-        final RelativeLayout RelativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-        final TextView factLabel = (TextView) findViewById(R.id.factTextView);
-        final Button showFactButton = (Button) findViewById(R.id.showFactButton);
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+        mFactLabel = (TextView) findViewById(R.id.factTextView);
+        mShowFactButton = (Button) findViewById(R.id.showFactButton);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mFact = mFactBook.getFact();
                 // Update the label with our dynamic fact
-                factLabel.setText(mFact);
+                mFactLabel.setText(mFact);
                 // Update the color dynamically
                 int mColor = mColorWheel.getColor();
-                RelativeLayout.setBackgroundColor(mColor);
-                showFactButton.setTextColor(mColor);
+                mRelativeLayout.setBackgroundColor(mColor);
+                mShowFactButton.setTextColor(mColor);
                 mFactBook.mfacts[0] = "Pigs are cool";
             }
         };
-        showFactButton.setOnClickListener(listener);
+        mShowFactButton.setOnClickListener(listener);
 
         String message = "Yay! Our activity was created";
         //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
